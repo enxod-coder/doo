@@ -21,7 +21,7 @@
     --text:#152238;
     --text-dim:#7C8698;
     --red:#D0273D;
-    --radius:20px;
+    --node-off:#D7E0EA;
   }
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
@@ -31,7 +31,6 @@
     -webkit-font-smoothing:antialiased;
     padding-bottom:84px;
   }
-  .mono{ font-family:'Space Mono', monospace; }
   a{ color:inherit; }
 
   .topbar{
@@ -66,7 +65,7 @@
     padding:28px 24px 24px;
     box-shadow:0 20px 40px -28px rgba(16,42,84,.35);
   }
-  .route-row{ display:flex; align-items:center; justify-content:space-between; padding-bottom:20px; margin-bottom:18px; border-bottom:1px solid var(--line); }
+  .route-row{ display:flex; align-items:center; justify-content:space-between; padding-bottom:20px; margin-bottom:16px; border-bottom:1px solid var(--line); }
   .route-side{ flex:1; }
   .route-side.to{ text-align:right; }
   .route-code{ font-family:'Space Mono',monospace; font-weight:700; font-size:34px; color:var(--navy); line-height:1; }
@@ -77,15 +76,13 @@
     display:flex; align-items:center; justify-content:center; color:var(--sky); font-size:15px; flex:none; margin:0 14px;
   }
 
-  .stat-row{ display:flex; align-items:center; gap:12px; padding:13px 0; border-bottom:1px solid var(--line); }
-  .stat-row:last-of-type{ border-bottom:none; }
+  .stat-row{ display:flex; align-items:center; gap:12px; padding:13px 0; }
   .stat-row .icon{ width:20px; height:20px; flex:none; color:var(--navy); }
   .stat-row .label{ font-size:12.5px; color:var(--text-dim); min-width:78px; }
-  .stat-row .value{ font-weight:700; font-size:15px; color:var(--text); display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-  .pax{ display:inline-flex; align-items:center; gap:4px; font-family:'Space Mono',monospace; font-size:13.5px; }
+  .stat-row .value{ font-weight:700; font-size:15px; color:var(--text); }
 
   .cta{
-    margin-top:20px; display:block; text-align:center; text-decoration:none;
+    margin-top:16px; display:block; text-align:center; text-decoration:none;
     background:linear-gradient(90deg, var(--navy), var(--navy-2) 55%, var(--sky));
     color:#fff; font-weight:700; font-size:15px; padding:15px; border-radius:100px;
   }
@@ -97,6 +94,47 @@
   .section-label b{ color:var(--navy); }
   .section-label::after{ content:""; flex:1; height:1px; background:var(--line); }
 
+  /* ---------- Map card ---------- */
+  .map-card{
+    background:linear-gradient(180deg, var(--sky-bg-2), var(--paper) 70%);
+    border:1px solid var(--line); border-radius:26px; padding:24px 22px 22px;
+  }
+  .map-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px; }
+  .map-head h2{ font-size:17px; margin:0; font-weight:800; color:var(--navy); }
+  .map-head .cap{ font-family:'Space Mono',monospace; font-size:11.5px; color:var(--text-dim); }
+
+  .map-stage{ position:relative; width:100%; max-width:280px; height:340px; margin:0 auto 16px; }
+  .map-stage svg.silhouette{ position:absolute; inset:0; width:100%; height:100%; opacity:.55; }
+  .map-node{
+    position:absolute; transform:translate(-50%,-50%);
+    display:flex; flex-direction:column; align-items:center; gap:3px; cursor:default;
+  }
+  .map-node .dot{
+    width:15px; height:15px; border-radius:50%; background:var(--paper);
+    border:2px solid var(--node-off); box-shadow:0 1px 3px rgba(16,42,84,.15);
+  }
+  .map-node .name{ font-size:9.5px; color:#AEB9C6; font-weight:600; }
+  .map-node.visited .dot{
+    width:20px; height:20px; background:var(--navy); border-color:var(--navy);
+    box-shadow:0 0 0 5px rgba(16,42,84,.12);
+  }
+  .map-node.visited .name{ color:var(--navy); font-weight:800; }
+  .map-node.visited{ cursor:pointer; }
+  .map-node.visited .badge{
+    position:absolute; top:-8px; right:-9px; background:var(--red); color:#fff;
+    font-family:'Space Mono',monospace; font-size:9px; font-weight:700;
+    width:15px; height:15px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  }
+
+  .map-legend{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; border-top:1px dashed var(--line); padding-top:14px; }
+  .map-legend a{
+    text-decoration:none; font-size:12px; font-weight:700; color:var(--navy);
+    background:var(--sky-bg); border:1px solid var(--line); padding:6px 12px; border-radius:100px;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .map-legend a .sq{ width:7px; height:7px; border-radius:50%; background:var(--navy); }
+
+  /* ---------- Boarding-pass ticket ---------- */
   .tickets{ display:flex; flex-direction:column; gap:22px; }
   .ticket{
     position:relative; display:flex; border-radius:18px; overflow:hidden;
@@ -104,6 +142,7 @@
     border:1px solid var(--line);
     box-shadow:0 16px 34px -24px rgba(16,42,84,.4);
     transition:transform .25s ease, box-shadow .25s ease;
+    scroll-margin-top:90px;
   }
   .ticket::before{
     content:""; position:absolute; top:0; left:0; right:0; height:4px;
@@ -183,7 +222,7 @@
 <div class="topbar">
   <div class="brand">
     <span class="mark"></span>
-    <span class="word">FAMILY<span> AIR</span></span>
+    <span class="word">DOO<span> AIR</span></span>
   </div>
   <div class="right">우리 가족 전용</div>
 </div>
@@ -209,22 +248,28 @@
     </div>
 
     <div class="stat-row">
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
-      <div class="label">함께한 시간</div>
-      <div class="value" id="statNights">-</div>
-    </div>
-    <div class="stat-row">
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="18" cy="9" r="2.3"/><path d="M15.5 20c.3-2.6 2.2-4.6 4.5-4.9"/></svg>
-      <div class="label">가족 인원</div>
-      <div class="value" id="statFamily">-</div>
-    </div>
-    <div class="stat-row">
       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>
       <div class="label">여행 기록</div>
       <div class="value" id="statTrips">-</div>
     </div>
 
     <a class="cta" href="#tickets">티켓 모아보기</a>
+  </div>
+
+  <div class="section-label"><b>VISITED MAP</b></div>
+  <div class="map-card">
+    <div class="map-head">
+      <h2>우리가 다녀온 대한민국</h2>
+      <span class="cap" id="mapCount">-</span>
+    </div>
+    <div class="map-stage">
+      <svg class="silhouette" viewBox="0 0 300 380" xmlns="http://www.w3.org/2000/svg">
+        <path d="M150 12c14 0 22 12 30 22 10 12 22 16 30 28 9 13 6 30 14 42 9 14 22 20 24 38 2 16-10 26-8 42 2 18 16 28 12 46-4 20-22 26-26 44-4 17 6 32-4 46-9 13-27 14-40 22-12 8-18 22-32 24-15 2-26-10-40-16-13-6-28-4-38-14-11-11-8-27-16-40-8-13-24-18-28-34-4-16 8-28 6-44-2-15-16-24-14-40 2-15 16-22 20-37 4-14-4-28 4-40 7-11 22-13 30-23 9-11 8-26 18-35 9-9 22-8 32-16 8-6 10-16 26-15z" fill="var(--sky-bg-2)"/>
+        <ellipse cx="78" cy="352" rx="20" ry="11" fill="var(--sky-bg-2)"/>
+      </svg>
+      <div id="mapNodes"></div>
+    </div>
+    <div class="map-legend" id="mapLegend"></div>
   </div>
 
   <div class="section-label" id="tickets"><b>TRAVEL PASSES</b></div>
@@ -235,7 +280,7 @@
     새로운 여행 가이드를 만들면 이 자리에 다음 탑승권이 채워집니다.
   </div>
 
-  <footer>FAMILY AIR · PERSONAL TRAVEL ARCHIVE</footer>
+  <footer>DOO AIR · PERSONAL TRAVEL ARCHIVE</footer>
 </div>
 
 <div class="appnav">
@@ -254,13 +299,26 @@
 </div>
 
 <script>
+/* =========================================================================
+   여행 기록 추가 방법
+   -------------------------------------------------------------------------
+   trips 배열에 객체 하나를 추가하면 탑승권 카드 + 지도 표시가 자동으로 반영됩니다.
+
+   - title/desc/location/family : 화면 표시용 텍스트
+   - region     : 지도에 표시할 광역 지역명 (아래 REGIONS의 key 중 하나)
+   - nights     : 숙박 일수(박)
+   - dateStart  : 'YYYY-MM-DD' (정렬 기준)
+   - dateLabel  : 화면에 보여줄 날짜 문구
+   - code       : 탑승권에 크게 표시할 3~4자 코드
+   - url        : 실제 여행 가이드 주소
+   ========================================================================= */
 const trips = [
   {
-    title: '음성 숲속 물놀이 여행',
+    title: '음성 여름 여행',
     desc: '두 가족, 여섯 명이 함께 떠나는 백야자연휴양림 물놀이 여행.',
     location: '충북 음성군 금왕읍 · 백야자연휴양림 휴양관 201호',
     family: '2가족 · 성인 4명 · 초1 2명',
-    adults: 4, kids: 2, babies: 0, nights: 2,
+    region: '충북', nights: 2,
     dateStart: '2026-07-29',
     dateLabel: '2026.07.29(수) – 07.31(금)',
     code: 'EUS',
@@ -271,13 +329,25 @@ const trips = [
     desc: '세 가족, 열한 명이 함께 떠나는 워터파크 & 한우 여행.',
     location: '강원도 횡성군 둔내면 · 웰리힐리파크',
     family: '3가족 · 성인 6명 · 초딩 4명 · 베이비 1명',
-    adults: 6, kids: 4, babies: 1, nights: 2,
+    region: '강원', nights: 2,
     dateStart: '2026-08-15',
     dateLabel: '2026.08.15(금) – 08.17(일)',
     code: 'HOS',
     url: 'https://enxod-coder.github.io/doo260815/'
   },
+  // 👆 새 여행을 다녀오면 이 위(또는 아래)에 객체를 추가하세요.
 ];
+
+/* 지도에 표시할 17개 광역 지역의 대략적 위치 (%, %) */
+const REGIONS = {
+  '서울':{x:33,y:20}, '인천':{x:22,y:21}, '경기':{x:34,y:26},
+  '강원':{x:63,y:19},
+  '충북':{x:47,y:38}, '충남':{x:26,y:39}, '대전':{x:35,y:42}, '세종':{x:33,y:37},
+  '경북':{x:63,y:44}, '전북':{x:32,y:57},
+  '경남':{x:57,y:66}, '부산':{x:70,y:70}, '울산':{x:70,y:60},
+  '전남':{x:29,y:75}, '광주':{x:26,y:70},
+  '제주':{x:22,y:93},
+};
 
 let sortOrder = 'desc';
 
@@ -289,15 +359,34 @@ function setSort(order){
 }
 
 function renderStats(){
-  const totalNights = trips.reduce((s,t)=> s + t.nights, 0);
-  const adults = trips.reduce((s,t)=> s + t.adults, 0);
-  const kids = trips.reduce((s,t)=> s + t.kids, 0);
-  const babies = trips.reduce((s,t)=> s + t.babies, 0);
-
-  document.getElementById('statNights').textContent = `총 ${totalNights}박 함께`;
-  document.getElementById('statFamily').innerHTML =
-    `<span class="pax">성인 ${adults}</span><span class="pax">아동 ${kids}</span><span class="pax">아기 ${babies}</span>`;
   document.getElementById('statTrips').textContent = `총 ${trips.length}번의 가족 여행`;
+}
+
+function renderMap(){
+  const visitedRegions = {};
+  trips.forEach(t=>{
+    if(!visitedRegions[t.region]) visitedRegions[t.region] = [];
+    visitedRegions[t.region].push(t);
+  });
+
+  const nodesEl = document.getElementById('mapNodes');
+  nodesEl.innerHTML = Object.entries(REGIONS).map(([name, pos])=>{
+    const hit = visitedRegions[name];
+    const visited = !!hit;
+    const first = visited ? hit[0] : null;
+    return `
+      <div class="map-node ${visited?'visited':''}" style="left:${pos.x}%; top:${pos.y}%"
+           ${visited ? `onclick="document.getElementById('pass-${first.code}').scrollIntoView({behavior:'smooth', block:'center'})"` : ''}>
+        <div class="dot">${visited ? `<span class="badge">${hit.length}</span>` : ''}</div>
+        <div class="name">${name}</div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('mapCount').textContent = `방문 ${Object.keys(visitedRegions).length}개 지역`;
+
+  document.getElementById('mapLegend').innerHTML = Object.entries(visitedRegions).map(([name, list])=>`
+    <a href="#pass-${list[0].code}"><span class="sq"></span>${name} · ${list[0].title}</a>
+  `).join('');
 }
 
 function render(){
@@ -307,10 +396,10 @@ function render(){
   });
   const list = document.getElementById('ticketList');
   list.innerHTML = sorted.map((t, i) => `
-    <a class="ticket" href="${t.url}" target="_blank" rel="noopener">
+    <a class="ticket" id="pass-${t.code}" href="${t.url}" target="_blank" rel="noopener">
       <div class="ticket-main">
         <div class="ticket-topline">
-          <div class="ticket-wordmark"><span class="dot"></span>FAMILY AIR</div>
+          <div class="ticket-wordmark"><span class="dot"></span>DOO AIR</div>
           <div class="ticket-tag">TRAVEL PASS</div>
         </div>
         <h3 class="ticket-title">${t.title}</h3>
@@ -326,7 +415,7 @@ function render(){
         <div class="notch top"></div>
         <div class="stub-no">NO. ${String(i+1).padStart(2,'0')}</div>
         <div class="stub-code">${t.code}</div>
-        <div class="stub-date">${t.dateLabel.replace(' – ', '\\n')}</div>
+        <div class="stub-date">${t.dateLabel.split(' – ')[0]}<br>${t.dateLabel.split(' – ')[1]}</div>
         <div class="stub-cta">GUIDE →</div>
         <div class="notch bottom"></div>
       </div>
@@ -335,6 +424,7 @@ function render(){
 }
 
 renderStats();
+renderMap();
 render();
 </script>
 </body>
