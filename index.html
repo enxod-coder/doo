@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>DOO AIR · 우리 가족 여행일지</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<style>
+  :root{
+    --navy:#102A54;
+    --navy-2:#1C3F82;
+    --sky:#3FA6E0;
+    --sky-2:#8FD3EF;
+    --sky-bg:#EEF6FC;
+    --sky-bg-2:#E2F1FB;
+    --paper:#FFFFFF;
+    --line:#E3E9F1;
+    --text:#152238;
+    --text-dim:#7C8698;
+    --red:#D0273D;
+    --radius:20px;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--paper); color:var(--text);
+    font-family:'Pretendard', -apple-system, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:84px;
+  }
+  .mono{ font-family:'Space Mono', monospace; }
+  a{ color:inherit; }
+
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 20px; border-bottom:1px solid var(--line);
+  }
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .brand .mark{
+    width:30px; height:30px; border-radius:50%;
+    background:conic-gradient(from 220deg, var(--navy) 0 50%, var(--sky) 50% 100%);
+    position:relative; flex:none;
+  }
+  .brand .mark::after{ content:""; position:absolute; inset:9px; background:var(--paper); border-radius:50%; }
+  .brand .word{ font-weight:800; font-size:18px; letter-spacing:.01em; color:var(--navy); }
+  .brand .word span{ color:var(--sky); }
+  .topbar .right{ display:flex; align-items:center; gap:14px; color:var(--text-dim); font-size:13px; }
+
+  .tabbar{ background:var(--sky-bg); padding:0 20px; display:flex; }
+  .tab{
+    flex:1; text-align:center; padding:16px 0 13px; font-size:15px; font-weight:700;
+    color:var(--text-dim); border-bottom:3px solid transparent; cursor:pointer; user-select:none;
+    background:none; border-top:0; border-left:0; border-right:0; font-family:inherit;
+  }
+  .tab.active{ color:var(--navy); border-bottom-color:var(--navy); }
+
+  .wrap{ max-width:720px; margin:0 auto; padding:26px 20px 10px; }
+
+  .hero-card{
+    background:linear-gradient(180deg, var(--sky-bg-2), var(--paper) 65%);
+    border:1px solid var(--line);
+    border-radius:26px;
+    padding:28px 24px 24px;
+    box-shadow:0 20px 40px -28px rgba(16,42,84,.35);
+  }
+  .route-row{ display:flex; align-items:center; justify-content:space-between; padding-bottom:20px; margin-bottom:18px; border-bottom:1px solid var(--line); }
+  .route-side{ flex:1; }
+  .route-side.to{ text-align:right; }
+  .route-code{ font-family:'Space Mono',monospace; font-weight:700; font-size:34px; color:var(--navy); line-height:1; }
+  .route-side.to .route-code{ color:#B7C1D1; }
+  .route-cap{ font-size:12.5px; color:var(--text-dim); margin-top:6px; }
+  .swap{
+    width:38px; height:38px; border-radius:50%; border:1.5px solid var(--sky);
+    display:flex; align-items:center; justify-content:center; color:var(--sky); font-size:15px; flex:none; margin:0 14px;
+  }
+
+  .stat-row{ display:flex; align-items:center; gap:12px; padding:13px 0; border-bottom:1px solid var(--line); }
+  .stat-row:last-of-type{ border-bottom:none; }
+  .stat-row .icon{ width:20px; height:20px; flex:none; color:var(--navy); }
+  .stat-row .label{ font-size:12.5px; color:var(--text-dim); min-width:78px; }
+  .stat-row .value{ font-weight:700; font-size:15px; color:var(--text); display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .pax{ display:inline-flex; align-items:center; gap:4px; font-family:'Space Mono',monospace; font-size:13.5px; }
+
+  .cta{
+    margin-top:20px; display:block; text-align:center; text-decoration:none;
+    background:linear-gradient(90deg, var(--navy), var(--navy-2) 55%, var(--sky));
+    color:#fff; font-weight:700; font-size:15px; padding:15px; border-radius:100px;
+  }
+
+  .section-label{
+    font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--text-dim); margin:40px 0 16px; display:flex; align-items:center; gap:10px;
+  }
+  .section-label b{ color:var(--navy); }
+  .section-label::after{ content:""; flex:1; height:1px; background:var(--line); }
+
+  .tickets{ display:flex; flex-direction:column; gap:22px; }
+  .ticket{
+    position:relative; display:flex; border-radius:18px; overflow:hidden;
+    background:var(--paper); text-decoration:none; color:var(--text);
+    border:1px solid var(--line);
+    box-shadow:0 16px 34px -24px rgba(16,42,84,.4);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .ticket::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:4px;
+    background:linear-gradient(90deg, var(--navy), var(--sky));
+  }
+  .ticket:hover{ transform:translateY(-3px); box-shadow:0 22px 40px -20px rgba(16,42,84,.45); }
+
+  .ticket-main{ flex:1; min-width:0; padding:22px 22px 16px; }
+  .ticket-topline{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+  .ticket-wordmark{ display:flex; align-items:center; gap:7px; font-weight:800; font-size:13px; color:var(--navy); letter-spacing:.02em; }
+  .ticket-wordmark .dot{ width:8px; height:8px; border-radius:50%; background:var(--red); }
+  .ticket-tag{ font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:.1em; color:var(--text-dim); border:1px solid var(--line); padding:3px 8px; border-radius:100px; }
+
+  .ticket-title{ font-weight:800; font-size:19px; margin:0 0 6px; color:var(--text); }
+  .ticket-desc{ font-size:13px; color:var(--text-dim); line-height:1.55; margin:0 0 16px; }
+
+  .field-grid{ display:flex; gap:18px; border-top:1px dashed var(--line); padding-top:14px; margin-bottom:16px; }
+  .field{ flex:1; }
+  .field .k{ font-family:'Space Mono',monospace; font-size:10px; color:var(--text-dim); letter-spacing:.1em; margin-bottom:4px; }
+  .field .v{ font-weight:700; font-size:13.5px; color:var(--navy); }
+
+  .barcode{
+    height:26px; border-radius:4px;
+    background:repeating-linear-gradient(90deg, var(--navy) 0 2px, transparent 2px 5px, var(--text-dim) 5px 6px, transparent 6px 9px);
+    opacity:.55;
+  }
+
+  .ticket-stub{
+    flex:0 0 122px; width:122px; background:var(--sky-bg);
+    border-left:2px dashed #C7D5E4;
+    padding:20px 14px; display:flex; flex-direction:column; align-items:center; justify-content:space-between;
+    text-align:center; position:relative;
+  }
+  .stub-no{ font-family:'Space Mono',monospace; font-size:10.5px; color:var(--text-dim); }
+  .stub-code{ font-family:'Space Mono',monospace; font-weight:700; font-size:26px; color:var(--navy); }
+  .stub-date{ font-family:'Space Mono',monospace; font-size:10.5px; color:var(--text-dim); line-height:1.5; }
+  .stub-cta{
+    font-size:11.5px; font-weight:700; padding:8px 10px; border-radius:8px;
+    background:var(--navy); color:#fff; white-space:nowrap;
+  }
+
+  .notch{ position:absolute; width:20px; height:20px; border-radius:50%; background:var(--paper); border:1px solid var(--line); }
+  .notch.top{ top:-11px; right:calc(122px - 11px); }
+  .notch.bottom{ bottom:-11px; right:calc(122px - 11px); }
+
+  @media (max-width:540px){
+    .ticket{ flex-direction:column; }
+    .ticket-stub{ flex:none; width:100%; border-left:none; border-top:2px dashed #C7D5E4; flex-direction:row; }
+    .notch{ top:auto; bottom:auto; }
+    .ticket-stub .notch.top{ top:-11px; left:50%; right:auto; margin-left:-11px; }
+    .ticket-stub .notch.bottom{ display:none; }
+  }
+
+  .placeholder{
+    margin-top:22px; border:2px dashed var(--line); border-radius:18px; padding:26px 22px;
+    text-align:center; color:var(--text-dim); font-size:13px; line-height:1.7;
+  }
+  .placeholder b{ display:block; color:var(--navy); font-size:15.5px; margin-bottom:6px; }
+
+  footer{ margin-top:50px; text-align:center; color:var(--text-dim); font-size:11.5px; font-family:'Space Mono',monospace; }
+
+  .appnav{
+    position:fixed; left:0; right:0; bottom:0; background:#fff; border-top:1px solid var(--line);
+    display:flex; padding:9px 6px 12px; z-index:20;
+  }
+  .appnav a{
+    flex:1; display:flex; flex-direction:column; align-items:center; gap:4px;
+    text-decoration:none; color:var(--text-dim); font-size:11px; font-weight:600;
+  }
+  .appnav a.active{ color:var(--navy); }
+  .appnav svg{ width:20px; height:20px; }
+  .appnav a.active svg{ color:var(--navy); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="mark"></span>
+    <span class="word">FAMILY<span> AIR</span></span>
+  </div>
+  <div class="right">우리 가족 전용</div>
+</div>
+
+<div class="tabbar">
+  <button class="tab active" id="tabDesc" onclick="setSort('desc')">최신순</button>
+  <button class="tab" id="tabAsc" onclick="setSort('asc')">오래된순</button>
+</div>
+
+<div class="wrap">
+
+  <div class="hero-card">
+    <div class="route-row">
+      <div class="route-side from">
+        <div class="route-code">HOME</div>
+        <div class="route-cap">우리집 · 모든 여행의 출발점</div>
+      </div>
+      <div class="swap">⇄</div>
+      <div class="route-side to">
+        <div class="route-code">To</div>
+        <div class="route-cap">다음 여행지</div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+      <div class="label">함께한 시간</div>
+      <div class="value" id="statNights">-</div>
+    </div>
+    <div class="stat-row">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="18" cy="9" r="2.3"/><path d="M15.5 20c.3-2.6 2.2-4.6 4.5-4.9"/></svg>
+      <div class="label">가족 인원</div>
+      <div class="value" id="statFamily">-</div>
+    </div>
+    <div class="stat-row">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>
+      <div class="label">여행 기록</div>
+      <div class="value" id="statTrips">-</div>
+    </div>
+
+    <a class="cta" href="#tickets">티켓 모아보기</a>
+  </div>
+
+  <div class="section-label" id="tickets"><b>TRAVEL PASSES</b></div>
+  <div class="tickets" id="ticketList"></div>
+
+  <div class="placeholder">
+    <b>다음 여행은 아직 발권 전 ✈️</b>
+    새로운 여행 가이드를 만들면 이 자리에 다음 탑승권이 채워집니다.
+  </div>
+
+  <footer>FAMILY AIR · PERSONAL TRAVEL ARCHIVE</footer>
+</div>
+
+<div class="appnav">
+  <a href="#top" class="active" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+    홈
+  </a>
+  <a href="#tickets">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12l6-8h12l-4 8 4 8H8l-6-8z"/></svg>
+    여행일지
+  </a>
+  <a href="#" onclick="document.querySelector('.placeholder').scrollIntoView({behavior:'smooth'});return false;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18"/></svg>
+    다음 여행
+  </a>
+</div>
+
+<script>
+const trips = [
+  {
+    title: '음성 숲속 물놀이 여행',
+    desc: '두 가족, 여섯 명이 함께 떠나는 백야자연휴양림 물놀이 여행.',
+    location: '충북 음성군 금왕읍 · 백야자연휴양림 휴양관 201호',
+    family: '2가족 · 성인 4명 · 초1 2명',
+    adults: 4, kids: 2, babies: 0, nights: 2,
+    dateStart: '2026-07-29',
+    dateLabel: '2026.07.29(수) – 07.31(금)',
+    code: 'EUS',
+    url: 'https://enxod-coder.github.io/doo260729/'
+  },
+  {
+    title: '횡성 여름 여행',
+    desc: '세 가족, 열한 명이 함께 떠나는 워터파크 & 한우 여행.',
+    location: '강원도 횡성군 둔내면 · 웰리힐리파크',
+    family: '3가족 · 성인 6명 · 초딩 4명 · 베이비 1명',
+    adults: 6, kids: 4, babies: 1, nights: 2,
+    dateStart: '2026-08-15',
+    dateLabel: '2026.08.15(금) – 08.17(일)',
+    code: 'HOS',
+    url: 'https://enxod-coder.github.io/doo260815/'
+  },
+];
+
+let sortOrder = 'desc';
+
+function setSort(order){
+  sortOrder = order;
+  document.getElementById('tabDesc').classList.toggle('active', order === 'desc');
+  document.getElementById('tabAsc').classList.toggle('active', order === 'asc');
+  render();
+}
+
+function renderStats(){
+  const totalNights = trips.reduce((s,t)=> s + t.nights, 0);
+  const adults = trips.reduce((s,t)=> s + t.adults, 0);
+  const kids = trips.reduce((s,t)=> s + t.kids, 0);
+  const babies = trips.reduce((s,t)=> s + t.babies, 0);
+
+  document.getElementById('statNights').textContent = `총 ${totalNights}박 함께`;
+  document.getElementById('statFamily').innerHTML =
+    `<span class="pax">성인 ${adults}</span><span class="pax">아동 ${kids}</span><span class="pax">아기 ${babies}</span>`;
+  document.getElementById('statTrips').textContent = `총 ${trips.length}번의 가족 여행`;
+}
+
+function render(){
+  const sorted = [...trips].sort((a,b)=>{
+    const d = new Date(a.dateStart) - new Date(b.dateStart);
+    return sortOrder === 'desc' ? -d : d;
+  });
+  const list = document.getElementById('ticketList');
+  list.innerHTML = sorted.map((t, i) => `
+    <a class="ticket" href="${t.url}" target="_blank" rel="noopener">
+      <div class="ticket-main">
+        <div class="ticket-topline">
+          <div class="ticket-wordmark"><span class="dot"></span>FAMILY AIR</div>
+          <div class="ticket-tag">TRAVEL PASS</div>
+        </div>
+        <h3 class="ticket-title">${t.title}</h3>
+        <p class="ticket-desc">${t.desc}</p>
+        <div class="field-grid">
+          <div class="field"><div class="k">STAY</div><div class="v">${t.location.split('·')[0].trim()}</div></div>
+          <div class="field"><div class="k">GUEST</div><div class="v">${t.family.split('·')[0].trim()}</div></div>
+          <div class="field"><div class="k">NIGHTS</div><div class="v">${t.nights}박 ${t.nights+1}일</div></div>
+        </div>
+        <div class="barcode"></div>
+      </div>
+      <div class="ticket-stub">
+        <div class="notch top"></div>
+        <div class="stub-no">NO. ${String(i+1).padStart(2,'0')}</div>
+        <div class="stub-code">${t.code}</div>
+        <div class="stub-date">${t.dateLabel.replace(' – ', '\\n')}</div>
+        <div class="stub-cta">GUIDE →</div>
+        <div class="notch bottom"></div>
+      </div>
+    </a>
+  `).join('');
+}
+
+renderStats();
+render();
+</script>
+</body>
+</html>
