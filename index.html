@@ -10,144 +10,95 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <style>
   :root{
-    --navy:#102A54;
-    --navy-2:#1C3F82;
-    --sky:#3FA6E0;
-    --sky-2:#8FD3EF;
-    --sky-bg:#EEF6FC;
-    --sky-bg-2:#E2F1FB;
-    --paper:#FFFFFF;
-    --line:#E3E9F1;
-    --text:#152238;
-    --text-dim:#7C8698;
-    --red:#D0273D;
-    --node-off:#D7E0EA;
+    --navy:#102A54; --navy-2:#1C3F82;
+    --sky:#3FA6E0; --sky-bg:#EEF6FC; --sky-bg-2:#E2F1FB;
+    --paper:#FFFFFF; --line:#E3E9F1;
+    --text:#152238; --text-dim:#7C8698;
+    --red:#D0273D; --node-off:#D7E0EA;
   }
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
-  body{
-    margin:0; background:var(--paper); color:var(--text);
-    font-family:'Pretendard', -apple-system, sans-serif;
-    -webkit-font-smoothing:antialiased;
-    padding-bottom:84px;
-  }
+  body{ margin:0; background:var(--paper); color:var(--text); font-family:'Pretendard',-apple-system,sans-serif; -webkit-font-smoothing:antialiased; padding-bottom:84px; }
   a{ color:inherit; }
 
-  .topbar{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:16px 20px; border-bottom:1px solid var(--line);
-  }
+  .topbar{ display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--line); }
   .brand{ display:flex; align-items:center; gap:10px; }
-  .brand .mark{
-    width:30px; height:30px; border-radius:50%;
-    background:conic-gradient(from 220deg, var(--navy) 0 50%, var(--sky) 50% 100%);
-    position:relative; flex:none;
-  }
+  .brand .mark{ width:30px; height:30px; border-radius:50%; background:conic-gradient(from 220deg, var(--navy) 0 50%, var(--sky) 50% 100%); position:relative; flex:none; }
   .brand .mark::after{ content:""; position:absolute; inset:9px; background:var(--paper); border-radius:50%; }
   .brand .word{ font-weight:800; font-size:18px; letter-spacing:.01em; color:var(--navy); }
   .brand .word span{ color:var(--sky); }
   .topbar .right{ display:flex; align-items:center; gap:14px; color:var(--text-dim); font-size:13px; }
 
   .tabbar{ background:var(--sky-bg); padding:0 20px; display:flex; }
-  .tab{
-    flex:1; text-align:center; padding:16px 0 13px; font-size:15px; font-weight:700;
-    color:var(--text-dim); border-bottom:3px solid transparent; cursor:pointer; user-select:none;
-    background:none; border-top:0; border-left:0; border-right:0; font-family:inherit;
-  }
+  .tab{ flex:1; text-align:center; padding:16px 0 13px; font-size:15px; font-weight:700; color:var(--text-dim); border-bottom:3px solid transparent; cursor:pointer; user-select:none; background:none; border-top:0; border-left:0; border-right:0; font-family:inherit; }
   .tab.active{ color:var(--navy); border-bottom-color:var(--navy); }
 
   .wrap{ max-width:720px; margin:0 auto; padding:26px 20px 10px; }
 
-  .hero-card{
-    background:linear-gradient(180deg, var(--sky-bg-2), var(--paper) 65%);
-    border:1px solid var(--line);
-    border-radius:26px;
-    padding:28px 24px 24px;
-    box-shadow:0 20px 40px -28px rgba(16,42,84,.35);
-  }
+  .hero-card{ background:linear-gradient(180deg, var(--sky-bg-2), var(--paper) 65%); border:1px solid var(--line); border-radius:26px; padding:28px 24px 24px; box-shadow:0 20px 40px -28px rgba(16,42,84,.35); }
   .route-row{ display:flex; align-items:center; justify-content:space-between; padding-bottom:20px; margin-bottom:16px; border-bottom:1px solid var(--line); }
   .route-side{ flex:1; }
   .route-side.to{ text-align:right; }
   .route-code{ font-family:'Space Mono',monospace; font-weight:700; font-size:34px; color:var(--navy); line-height:1; }
   .route-side.to .route-code{ color:#B7C1D1; }
   .route-cap{ font-size:12.5px; color:var(--text-dim); margin-top:6px; }
-  .swap{
-    width:38px; height:38px; border-radius:50%; border:1.5px solid var(--sky);
-    display:flex; align-items:center; justify-content:center; color:var(--sky); font-size:15px; flex:none; margin:0 14px;
-  }
+  .swap{ width:38px; height:38px; border-radius:50%; border:1.5px solid var(--sky); display:flex; align-items:center; justify-content:center; color:var(--sky); font-size:15px; flex:none; margin:0 14px; }
 
   .stat-row{ display:flex; align-items:center; gap:12px; padding:13px 0; }
   .stat-row .icon{ width:20px; height:20px; flex:none; color:var(--navy); }
   .stat-row .label{ font-size:12.5px; color:var(--text-dim); min-width:78px; }
   .stat-row .value{ font-weight:700; font-size:15px; color:var(--text); }
 
-  .cta{
-    margin-top:16px; display:block; text-align:center; text-decoration:none;
-    background:linear-gradient(90deg, var(--navy), var(--navy-2) 55%, var(--sky));
-    color:#fff; font-weight:700; font-size:15px; padding:15px; border-radius:100px;
-  }
+  .cta{ margin-top:16px; display:block; text-align:center; text-decoration:none; background:linear-gradient(90deg, var(--navy), var(--navy-2) 55%, var(--sky)); color:#fff; font-weight:700; font-size:15px; padding:15px; border-radius:100px; }
 
-  .section-label{
-    font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase;
-    color:var(--text-dim); margin:40px 0 16px; display:flex; align-items:center; gap:10px;
-  }
+  .section-label{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-dim); margin:40px 0 16px; display:flex; align-items:center; gap:10px; }
   .section-label b{ color:var(--navy); }
   .section-label::after{ content:""; flex:1; height:1px; background:var(--line); }
 
   /* ---------- Map card ---------- */
-  .map-card{
-    background:linear-gradient(180deg, var(--sky-bg-2), var(--paper) 70%);
-    border:1px solid var(--line); border-radius:26px; padding:24px 22px 22px;
-  }
+  .map-card{ background:linear-gradient(180deg, var(--sky-bg-2), var(--paper) 70%); border:1px solid var(--line); border-radius:26px; padding:24px 22px 22px; }
   .map-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px; }
   .map-head h2{ font-size:17px; margin:0; font-weight:800; color:var(--navy); }
   .map-head .cap{ font-family:'Space Mono',monospace; font-size:11.5px; color:var(--text-dim); }
 
+  .map-toggle{ display:flex; gap:6px; background:var(--sky-bg); border-radius:100px; padding:4px; margin-bottom:18px; }
+  .map-toggle button{ flex:1; border:none; background:none; padding:8px 0; font-family:inherit; font-weight:700; font-size:13px; color:var(--text-dim); border-radius:100px; cursor:pointer; }
+  .map-toggle button.active{ background:var(--navy); color:#fff; }
+
+  .map-panel{ display:none; }
+  .map-panel.active{ display:block; }
+
   .map-stage{ position:relative; width:100%; max-width:280px; height:340px; margin:0 auto 16px; }
   .map-stage svg.silhouette{ position:absolute; inset:0; width:100%; height:100%; opacity:.55; }
-  .map-node{
-    position:absolute; transform:translate(-50%,-50%);
-    display:flex; flex-direction:column; align-items:center; gap:3px; cursor:default;
-  }
-  .map-node .dot{
-    width:15px; height:15px; border-radius:50%; background:var(--paper);
-    border:2px solid var(--node-off); box-shadow:0 1px 3px rgba(16,42,84,.15);
-  }
+  .map-node{ position:absolute; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; gap:3px; }
+  .map-node .dot{ width:15px; height:15px; border-radius:50%; background:var(--paper); border:2px solid var(--node-off); box-shadow:0 1px 3px rgba(16,42,84,.15); }
   .map-node .name{ font-size:9.5px; color:#AEB9C6; font-weight:600; }
-  .map-node.visited .dot{
-    width:20px; height:20px; background:var(--navy); border-color:var(--navy);
-    box-shadow:0 0 0 5px rgba(16,42,84,.12);
-  }
+  .map-node.visited .dot{ width:20px; height:20px; background:var(--navy); border-color:var(--navy); box-shadow:0 0 0 5px rgba(16,42,84,.12); }
   .map-node.visited .name{ color:var(--navy); font-weight:800; }
   .map-node.visited{ cursor:pointer; }
-  .map-node.visited .badge{
-    position:absolute; top:-8px; right:-9px; background:var(--red); color:#fff;
-    font-family:'Space Mono',monospace; font-size:9px; font-weight:700;
-    width:15px; height:15px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-  }
+  .map-node.visited .badge{ position:absolute; top:-8px; right:-9px; background:var(--red); color:#fff; font-family:'Space Mono',monospace; font-size:9px; font-weight:700; width:15px; height:15px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+
+  .intl-stage{ position:relative; width:100%; max-width:320px; aspect-ratio:3/2; margin:0 auto 16px; background:
+     repeating-linear-gradient(0deg, rgba(16,42,84,.05) 0 1px, transparent 1px 34px),
+     repeating-linear-gradient(90deg, rgba(16,42,84,.05) 0 1px, transparent 1px 34px);
+     border-radius:16px; }
+  .intl-stage svg{ position:absolute; inset:0; width:100%; height:100%; }
+  .intl-node{ position:absolute; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; }
+  .intl-node.home{ cursor:default; }
+  .intl-node .dot{ width:14px; height:14px; border-radius:50%; background:var(--text-dim); border:2px solid #fff; box-shadow:0 1px 3px rgba(16,42,84,.2); }
+  .intl-node.home .dot{ background:var(--navy); }
+  .intl-node .flag{ font-size:22px; line-height:1; }
+  .intl-node .name{ font-size:10px; font-weight:700; color:var(--navy); white-space:nowrap; }
+  .intl-node.home .name{ color:var(--text-dim); font-weight:700; }
 
   .map-legend{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; border-top:1px dashed var(--line); padding-top:14px; }
-  .map-legend a{
-    text-decoration:none; font-size:12px; font-weight:700; color:var(--navy);
-    background:var(--sky-bg); border:1px solid var(--line); padding:6px 12px; border-radius:100px;
-    display:inline-flex; align-items:center; gap:6px;
-  }
+  .map-legend a{ text-decoration:none; font-size:12px; font-weight:700; color:var(--navy); background:var(--sky-bg); border:1px solid var(--line); padding:6px 12px; border-radius:100px; display:inline-flex; align-items:center; gap:6px; }
   .map-legend a .sq{ width:7px; height:7px; border-radius:50%; background:var(--navy); }
 
   /* ---------- Boarding-pass ticket ---------- */
   .tickets{ display:flex; flex-direction:column; gap:22px; }
-  .ticket{
-    position:relative; display:flex; border-radius:18px; overflow:hidden;
-    background:var(--paper); text-decoration:none; color:var(--text);
-    border:1px solid var(--line);
-    box-shadow:0 16px 34px -24px rgba(16,42,84,.4);
-    transition:transform .25s ease, box-shadow .25s ease;
-    scroll-margin-top:90px;
-  }
-  .ticket::before{
-    content:""; position:absolute; top:0; left:0; right:0; height:4px;
-    background:linear-gradient(90deg, var(--navy), var(--sky));
-  }
+  .ticket{ position:relative; display:flex; border-radius:18px; overflow:hidden; background:var(--paper); text-decoration:none; color:var(--text); border:1px solid var(--line); box-shadow:0 16px 34px -24px rgba(16,42,84,.4); transition:transform .25s ease, box-shadow .25s ease; scroll-margin-top:90px; }
+  .ticket::before{ content:""; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg, var(--navy), var(--sky)); }
   .ticket:hover{ transform:translateY(-3px); box-shadow:0 22px 40px -20px rgba(16,42,84,.45); }
 
   .ticket-main{ flex:1; min-width:0; padding:22px 22px 16px; }
@@ -164,25 +115,13 @@
   .field .k{ font-family:'Space Mono',monospace; font-size:10px; color:var(--text-dim); letter-spacing:.1em; margin-bottom:4px; }
   .field .v{ font-weight:700; font-size:13.5px; color:var(--navy); }
 
-  .barcode{
-    height:26px; border-radius:4px;
-    background:repeating-linear-gradient(90deg, var(--navy) 0 2px, transparent 2px 5px, var(--text-dim) 5px 6px, transparent 6px 9px);
-    opacity:.55;
-  }
+  .barcode{ height:26px; border-radius:4px; background:repeating-linear-gradient(90deg, var(--navy) 0 2px, transparent 2px 5px, var(--text-dim) 5px 6px, transparent 6px 9px); opacity:.55; }
 
-  .ticket-stub{
-    flex:0 0 122px; width:122px; background:var(--sky-bg);
-    border-left:2px dashed #C7D5E4;
-    padding:20px 14px; display:flex; flex-direction:column; align-items:center; justify-content:space-between;
-    text-align:center; position:relative;
-  }
+  .ticket-stub{ flex:0 0 122px; width:122px; background:var(--sky-bg); border-left:2px dashed #C7D5E4; padding:20px 14px; display:flex; flex-direction:column; align-items:center; justify-content:space-between; text-align:center; position:relative; }
   .stub-no{ font-family:'Space Mono',monospace; font-size:10.5px; color:var(--text-dim); }
   .stub-code{ font-family:'Space Mono',monospace; font-weight:700; font-size:26px; color:var(--navy); }
   .stub-date{ font-family:'Space Mono',monospace; font-size:10.5px; color:var(--text-dim); line-height:1.5; }
-  .stub-cta{
-    font-size:11.5px; font-weight:700; padding:8px 10px; border-radius:8px;
-    background:var(--navy); color:#fff; white-space:nowrap;
-  }
+  .stub-cta{ font-size:11.5px; font-weight:700; padding:8px 10px; border-radius:8px; background:var(--navy); color:#fff; white-space:nowrap; }
 
   .notch{ position:absolute; width:20px; height:20px; border-radius:50%; background:var(--paper); border:1px solid var(--line); }
   .notch.top{ top:-11px; right:calc(122px - 11px); }
@@ -196,22 +135,13 @@
     .ticket-stub .notch.bottom{ display:none; }
   }
 
-  .placeholder{
-    margin-top:22px; border:2px dashed var(--line); border-radius:18px; padding:26px 22px;
-    text-align:center; color:var(--text-dim); font-size:13px; line-height:1.7;
-  }
+  .placeholder{ margin-top:22px; border:2px dashed var(--line); border-radius:18px; padding:26px 22px; text-align:center; color:var(--text-dim); font-size:13px; line-height:1.7; }
   .placeholder b{ display:block; color:var(--navy); font-size:15.5px; margin-bottom:6px; }
 
   footer{ margin-top:50px; text-align:center; color:var(--text-dim); font-size:11.5px; font-family:'Space Mono',monospace; }
 
-  .appnav{
-    position:fixed; left:0; right:0; bottom:0; background:#fff; border-top:1px solid var(--line);
-    display:flex; padding:9px 6px 12px; z-index:20;
-  }
-  .appnav a{
-    flex:1; display:flex; flex-direction:column; align-items:center; gap:4px;
-    text-decoration:none; color:var(--text-dim); font-size:11px; font-weight:600;
-  }
+  .appnav{ position:fixed; left:0; right:0; bottom:0; background:#fff; border-top:1px solid var(--line); display:flex; padding:9px 6px 12px; z-index:20; }
+  .appnav a{ flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; text-decoration:none; color:var(--text-dim); font-size:11px; font-weight:600; }
   .appnav a.active{ color:var(--navy); }
   .appnav svg{ width:20px; height:20px; }
   .appnav a.active svg{ color:var(--navy); }
@@ -220,10 +150,7 @@
 <body>
 
 <div class="topbar">
-  <div class="brand">
-    <span class="mark"></span>
-    <span class="word">DOO<span> AIR</span></span>
-  </div>
+  <div class="brand"><span class="mark"></span><span class="word">DOO<span> AIR</span></span></div>
   <div class="right">우리 가족 전용</div>
 </div>
 
@@ -236,40 +163,48 @@
 
   <div class="hero-card">
     <div class="route-row">
-      <div class="route-side from">
-        <div class="route-code">HOME</div>
-        <div class="route-cap">우리집</div>
-      </div>
+      <div class="route-side from"><div class="route-code">HOME</div><div class="route-cap">우리집 · 모든 여행의 출발점</div></div>
       <div class="swap">⇄</div>
-      <div class="route-side to">
-        <div class="route-code">To</div>
-        <div class="route-cap">다음 여행지</div>
-      </div>
+      <div class="route-side to"><div class="route-code">To</div><div class="route-cap">다음 여행지</div></div>
     </div>
-
     <div class="stat-row">
       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>
       <div class="label">여행 기록</div>
       <div class="value" id="statTrips">-</div>
     </div>
-
     <a class="cta" href="#tickets">티켓 모아보기</a>
   </div>
 
   <div class="section-label"><b>VISITED MAP</b></div>
   <div class="map-card">
     <div class="map-head">
-      <h2>우리가 다녀온 대한민국</h2>
+      <h2 id="mapTitle">우리가 다녀온 대한민국</h2>
       <span class="cap" id="mapCount">-</span>
     </div>
-    <div class="map-stage">
-      <svg class="silhouette" viewBox="0 0 300 380" xmlns="http://www.w3.org/2000/svg">
-        <path d="M150 12c14 0 22 12 30 22 10 12 22 16 30 28 9 13 6 30 14 42 9 14 22 20 24 38 2 16-10 26-8 42 2 18 16 28 12 46-4 20-22 26-26 44-4 17 6 32-4 46-9 13-27 14-40 22-12 8-18 22-32 24-15 2-26-10-40-16-13-6-28-4-38-14-11-11-8-27-16-40-8-13-24-18-28-34-4-16 8-28 6-44-2-15-16-24-14-40 2-15 16-22 20-37 4-14-4-28 4-40 7-11 22-13 30-23 9-11 8-26 18-35 9-9 22-8 32-16 8-6 10-16 26-15z" fill="var(--sky-bg-2)"/>
-        <ellipse cx="78" cy="352" rx="20" ry="11" fill="var(--sky-bg-2)"/>
-      </svg>
-      <div id="mapNodes"></div>
+
+    <div class="map-toggle">
+      <button class="active" id="modeDomestic" onclick="setMapMode('domestic')">국내</button>
+      <button id="modeIntl" onclick="setMapMode('international')">해외</button>
     </div>
-    <div class="map-legend" id="mapLegend"></div>
+
+    <div class="map-panel active" id="panelDomestic">
+      <div class="map-stage">
+        <svg class="silhouette" viewBox="0 0 300 380" xmlns="http://www.w3.org/2000/svg">
+          <path d="M150 12c14 0 22 12 30 22 10 12 22 16 30 28 9 13 6 30 14 42 9 14 22 20 24 38 2 16-10 26-8 42 2 18 16 28 12 46-4 20-22 26-26 44-4 17 6 32-4 46-9 13-27 14-40 22-12 8-18 22-32 24-15 2-26-10-40-16-13-6-28-4-38-14-11-11-8-27-16-40-8-13-24-18-28-34-4-16 8-28 6-44-2-15-16-24-14-40 2-15 16-22 20-37 4-14-4-28 4-40 7-11 22-13 30-23 9-11 8-26 18-35 9-9 22-8 32-16 8-6 10-16 26-15z" fill="var(--sky-bg-2)"/>
+          <ellipse cx="78" cy="352" rx="20" ry="11" fill="var(--sky-bg-2)"/>
+        </svg>
+        <div id="mapNodes"></div>
+      </div>
+      <div class="map-legend" id="mapLegendDomestic"></div>
+    </div>
+
+    <div class="map-panel" id="panelIntl">
+      <div class="intl-stage">
+        <svg id="intlLines" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div id="intlNodes"></div>
+      </div>
+      <div class="map-legend" id="mapLegendIntl"></div>
+    </div>
   </div>
 
   <div class="section-label" id="tickets"><b>TRAVEL PASSES</b></div>
@@ -285,16 +220,13 @@
 
 <div class="appnav">
   <a href="#top" class="active" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
-    홈
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>홈
   </a>
   <a href="#tickets">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12l6-8h12l-4 8 4 8H8l-6-8z"/></svg>
-    여행일지
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12l6-8h12l-4 8 4 8H8l-6-8z"/></svg>여행일지
   </a>
   <a href="#" onclick="document.querySelector('.placeholder').scrollIntoView({behavior:'smooth'});return false;">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18"/></svg>
-    다음 여행
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18"/></svg>다음 여행
   </a>
 </div>
 
@@ -304,17 +236,14 @@
    -------------------------------------------------------------------------
    trips 배열에 객체 하나를 추가하면 탑승권 카드 + 지도 표시가 자동으로 반영됩니다.
 
-   - title/desc/location/family : 화면 표시용 텍스트
-   - region     : 지도에 표시할 광역 지역명 (아래 REGIONS의 key 중 하나)
-   - nights     : 숙박 일수(박)
-   - dateStart  : 'YYYY-MM-DD' (정렬 기준)
-   - dateLabel  : 화면에 보여줄 날짜 문구
-   - code       : 탑승권에 크게 표시할 3~4자 코드
-   - url        : 실제 여행 가이드 주소
+   공통 필드: title, desc, location, family, nights, dateStart, dateLabel, code, url
+   국내 여행  : type:'domestic', region: REGIONS 객체의 key 중 하나 (예: '강원')
+   해외 여행  : type:'international', country:'국가명', flag:'국기 이모지'
    ========================================================================= */
 const trips = [
   {
-    title: '음성 여름 여행',
+    type:'domestic',
+    title: '음성 숲속 물놀이 여행',
     desc: '두 가족, 여섯 명이 함께 떠나는 백야자연휴양림 물놀이 여행.',
     location: '충북 음성군 금왕읍 · 백야자연휴양림 휴양관 201호',
     family: '2가족 · 성인 4명 · 초1 2명',
@@ -325,6 +254,7 @@ const trips = [
     url: 'https://enxod-coder.github.io/doo260729/'
   },
   {
+    type:'domestic',
     title: '횡성 여름 여행',
     desc: '세 가족, 열한 명이 함께 떠나는 워터파크 & 한우 여행.',
     location: '강원도 횡성군 둔내면 · 웰리힐리파크',
@@ -335,10 +265,21 @@ const trips = [
     code: 'HOS',
     url: 'https://enxod-coder.github.io/doo260815/'
   },
+  {
+    type:'international',
+    title: '코타키나발루 대가족 여행',
+    desc: '성인 7명, 초등학생 1명이 함께하는 대가족 코타키나발루 여행.',
+    location: '말레이시아 코타키나발루',
+    family: '성인 7명 · 초등학생 1명',
+    country:'말레이시아', flag:'🇲🇾', nights: 4,
+    dateStart: '2027-07-28',
+    dateLabel: '2027.07.28(수) – 08.01(일)',
+    code: 'BKI',
+    url: 'https://enxod-coder.github.io/doo2707/'
+  },
   // 👆 새 여행을 다녀오면 이 위(또는 아래)에 객체를 추가하세요.
 ];
 
-/* 지도에 표시할 17개 광역 지역의 대략적 위치 (%, %) */
 const REGIONS = {
   '서울':{x:33,y:20}, '인천':{x:22,y:21}, '경기':{x:34,y:26},
   '강원':{x:63,y:19},
@@ -350,6 +291,7 @@ const REGIONS = {
 };
 
 let sortOrder = 'desc';
+let mapMode = 'domestic';
 
 function setSort(order){
   sortOrder = order;
@@ -358,13 +300,34 @@ function setSort(order){
   render();
 }
 
+function setMapMode(mode){
+  mapMode = mode;
+  document.getElementById('modeDomestic').classList.toggle('active', mode==='domestic');
+  document.getElementById('modeIntl').classList.toggle('active', mode==='international');
+  document.getElementById('panelDomestic').classList.toggle('active', mode==='domestic');
+  document.getElementById('panelIntl').classList.toggle('active', mode==='international');
+  document.getElementById('mapTitle').textContent = mode==='domestic' ? '우리가 다녀온 대한민국' : '우리가 다녀온 세계';
+  updateMapCount();
+}
+
+function updateMapCount(){
+  if(mapMode==='domestic'){
+    const regions = new Set(trips.filter(t=>t.type==='domestic').map(t=>t.region));
+    document.getElementById('mapCount').textContent = `방문 ${regions.size}개 지역`;
+  }else{
+    const countries = new Set(trips.filter(t=>t.type==='international').map(t=>t.country));
+    document.getElementById('mapCount').textContent = `방문 ${countries.size}개국`;
+  }
+}
+
 function renderStats(){
   document.getElementById('statTrips').textContent = `총 ${trips.length}번의 가족 여행`;
 }
 
-function renderMap(){
+function renderDomesticMap(){
+  const domestic = trips.filter(t=>t.type==='domestic');
   const visitedRegions = {};
-  trips.forEach(t=>{
+  domestic.forEach(t=>{
     if(!visitedRegions[t.region]) visitedRegions[t.region] = [];
     visitedRegions[t.region].push(t);
   });
@@ -382,11 +345,46 @@ function renderMap(){
       </div>`;
   }).join('');
 
-  document.getElementById('mapCount').textContent = `방문 ${Object.keys(visitedRegions).length}개 지역`;
-
-  document.getElementById('mapLegend').innerHTML = Object.entries(visitedRegions).map(([name, list])=>`
+  document.getElementById('mapLegendDomestic').innerHTML = Object.entries(visitedRegions).map(([name, list])=>`
     <a href="#pass-${list[0].code}"><span class="sq"></span>${name} · ${list[0].title}</a>
   `).join('');
+}
+
+function renderIntlMap(){
+  const intl = trips.filter(t=>t.type==='international');
+  const W=300, H=200;
+  const homeX=42, homeY=100;
+  const destX=250;
+
+  const positioned = intl.map((t,i)=>{
+    const y = intl.length===1 ? 100 : 30 + (140/(intl.length-1))*i;
+    return { t, x:destX, y };
+  });
+
+  const svg = document.getElementById('intlLines');
+  svg.innerHTML = `
+    <circle cx="${homeX}" cy="${homeY}" r="3" fill="none"/>
+    ${positioned.map(({x,y})=>{
+      const midX=(homeX+x)/2, midY=Math.min(homeY,y)-30;
+      return `<path d="M ${homeX} ${homeY} Q ${midX} ${midY} ${x} ${y}" stroke="var(--sky)" stroke-width="1.6" stroke-dasharray="4 5" fill="none"/>`;
+    }).join('')}
+  `;
+
+  const nodesEl = document.getElementById('intlNodes');
+  nodesEl.innerHTML = `
+    <div class="intl-node home" style="left:${homeX/W*100}%; top:${homeY/H*100}%">
+      <div class="dot"></div><div class="name">HOME 🇰🇷</div>
+    </div>
+    ${positioned.map(({t,x,y})=>`
+      <div class="intl-node" style="left:${x/W*100}%; top:${y/H*100}%" onclick="document.getElementById('pass-${t.code}').scrollIntoView({behavior:'smooth', block:'center'})">
+        <div class="flag">${t.flag}</div>
+        <div class="name">${t.code} · ${t.country}</div>
+      </div>`).join('')}
+  `;
+
+  document.getElementById('mapLegendIntl').innerHTML = intl.map(t=>`
+    <a href="#pass-${t.code}"><span class="sq"></span>${t.flag} ${t.country} · ${t.title}</a>
+  `).join('') || `<span style="font-size:12px;color:var(--text-dim);">아직 해외 여행 기록이 없어요</span>`;
 }
 
 function render(){
@@ -402,7 +400,7 @@ function render(){
           <div class="ticket-wordmark"><span class="dot"></span>DOO AIR</div>
           <div class="ticket-tag">TRAVEL PASS</div>
         </div>
-        <h3 class="ticket-title">${t.title}</h3>
+        <h3 class="ticket-title">${t.flag ? t.flag + ' ' : ''}${t.title}</h3>
         <p class="ticket-desc">${t.desc}</p>
         <div class="field-grid">
           <div class="field"><div class="k">STAY</div><div class="v">${t.location.split('·')[0].trim()}</div></div>
@@ -424,7 +422,9 @@ function render(){
 }
 
 renderStats();
-renderMap();
+renderDomesticMap();
+renderIntlMap();
+updateMapCount();
 render();
 </script>
 </body>
